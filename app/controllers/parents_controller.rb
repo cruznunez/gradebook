@@ -1,5 +1,8 @@
 class ParentsController < ApplicationController
+  include ApplicationHelper
   before_action :set_parent, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in?
+
 
   # GET /parents
   # GET /parents.json

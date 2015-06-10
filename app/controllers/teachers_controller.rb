@@ -1,5 +1,8 @@
 class TeachersController < ApplicationController
+  include ApplicationHelper
   before_action :set_teacher, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in?
+
 
   # GET /teachers
   # GET /teachers.json

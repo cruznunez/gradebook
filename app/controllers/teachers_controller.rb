@@ -1,7 +1,7 @@
 class TeachersController < ApplicationController
   include ApplicationHelper
   before_action :set_teacher, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in?
+  # before_action :logged_in?
 
 
   # GET /teachers
@@ -31,7 +31,8 @@ class TeachersController < ApplicationController
 
     respond_to do |format|
       if @teacher.save
-        format.html { redirect_to @teacher, notice: 'Teacher was successfully created.' }
+        session[:user_id] = @teacher.id unless session[:user_id]
+        format.html { redirect_to teachers_path, notice: 'Teacher was successfully created.' }
         format.json { render :show, status: :created, location: @teacher }
       else
         format.html { render :new }
@@ -45,7 +46,7 @@ class TeachersController < ApplicationController
   def update
     respond_to do |format|
       if @teacher.update(teacher_params)
-        format.html { redirect_to @teacher, notice: 'Teacher was successfully updated.' }
+        format.html { redirect_to teachers_path, notice: 'Teacher was successfully updated.' }
         format.json { render :show, status: :ok, location: @teacher }
       else
         format.html { render :edit }

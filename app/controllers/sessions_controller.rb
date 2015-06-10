@@ -1,21 +1,24 @@
 class SessionsController < ApplicationController
+  include PagesHelper
   before_action :logged_in?, only: [:login]
-
-  private def logged_in?
-      if Teacher.find_by_id(session[:user_id])
-        redirect_to root_path
-      end
-  end
 
   def login
     if request.post?
-      teacher = Teacher.find_by_email(params[:email])
-      if teacher && teacher.authenticate(params[:password_digest])
-        session[:user_id] = teacher.id
-        redirect_to root_path, notice: "Log in successful."
+      if Teacher.find_by_email(params[:email])
+        user_id = Teacher.find_by_email(params[:email]).id
+        type = "teacher"
+      elsif Student.find_by_email(params[:email])
+        user_id = Student.find_by_email(params[:email]).id
+        type = "student"
+      elsif Parent.find_by_email(params[:email])
+        user_id = Parent.find_by_email(params[:email]).id
+        type = "parent"
       else
-        flash.now[:notice] = "Invalid password"
+        flash.now[:notice] = "ACCESS DENIED"
       end
+      session[:user_id] = user_id
+      session[:user_type] = type
+      redirect_to root_path, notice: "Log in successful."
     end
     @teachers = Teacher.all
   end

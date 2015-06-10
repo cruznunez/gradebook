@@ -1,9 +1,9 @@
 module ApplicationHelper
   private def logged_in?
-      if Teacher.find_by_id(session[:user_id])
+      if session[:user_id] && session[:user_type]
         return true
       else
-        redirect_to sessions_login_path, notice: 'You must log in before seeing a teacher list.'
+        redirect_to sessions_login_path, notice: 'You must log in before accessing this site.'
       end
   end
 end

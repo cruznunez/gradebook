@@ -7,8 +7,11 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
+    <% if session[:user_type] = 'teacher' %>
+      <%= link_to "Home", root_path %>
+    <% end %>
     <% if session[:user_id] %>
-      <%= link_to "Edit", "/teachers/#{session[:user_id]}/edit" %>
+      <%= link_to "Edit", "/#{session[:user_type]}/#{session[:user_id]}/edit" %>
       <%= link_to "Logout", sessions_logout_path %>
       <p>
         Signed in as: <%= @user.name %>

@@ -3,7 +3,7 @@
 one:
   student_id: 1
   name: name
-  email: email
+  email: pemail
   password_digest: password
   user_type: parent
 

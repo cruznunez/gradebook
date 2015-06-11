@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
-  def parent_setup
+  setup do
     @parent = parents(:one)
+  end
+
+  def parent_setup
     session[:user_id] = @parent.id
     session[:user_type] = @parent.user_type
   end
@@ -24,6 +27,19 @@ class SessionsControllerTest < ActionController::TestCase
     assert_redirected_to root_path
     assert_equal 'You are already logged in. If you want to log in with to ano'\
     'ther profile, you must log out first!', flash[:notice]
+  end
+
+  test "should login as correct user type 1" do
+    post :login, {email: @parent.email, password_digest: @parent.password_digest }
+    assert_redirected_to root_path
+    assert_equal "parent", session[:user_type]
+  end
+
+  test "should login as correct user type 2" do
+    @student = students(:one)
+    post :login, {email: @student.email, password_digest: @student.password_digest }
+    assert_redirected_to root_path
+    assert_equal "student", session[:user_type]
   end
 
   test "should get logout" do

@@ -14,7 +14,7 @@
       <%= link_to "Edit", "/#{session[:user_type]}/#{session[:user_id]}/edit" %>
       <%= link_to "Logout", sessions_logout_path %>
       <p>
-        Signed in as: <%= @user.name %>
+        Signed in as : <%= @user.name %>
       </p>
     <% else %>
       <%= link_to "New Teacher", new_teacher_path %>

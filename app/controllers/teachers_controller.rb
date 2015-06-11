@@ -1,38 +1,38 @@
 class TeachersController < ApplicationController
   include ApplicationHelper
+  include TeachersHelper
   before_action :set_teacher, only: [:show, :edit, :update, :destroy]
-  # before_action :logged_in?
+  before_action :teacher?, only: [:index, :edit, :update, :destroy]
 
 
-  # GET /teachers
-  # GET /teachers.json
   def index
     @teachers = Teacher.all
   end
 
-  # GET /teachers/1
-  # GET /teachers/1.json
   def show
   end
 
-  # GET /teachers/new
   def new
     @teacher = Teacher.new
   end
 
-  # GET /teachers/1/edit
   def edit
   end
 
-  # POST /teachers
-  # POST /teachers.json
   def create
     @teacher = Teacher.new(teacher_params)
-
     respond_to do |format|
       if @teacher.save
+        old_user_type = session[:user_type]
         session[:user_id] = @teacher.id unless session[:user_id]
-        format.html { redirect_to teachers_path, notice: 'Teacher was successfully created.' }
+        if old_user_type == nil
+          session[:user_type] = params[:teacher][:user_type]
+          format.html { redirect_to root_path, notice: 'Teacher was successfully created.' }
+        elsif already_logged_in? && is_teacher?
+          format.html { redirect_to teachers_path, notice: 'Teacher was successfully created.' }
+        else
+          format.html { redirect_to root_path, notice: "ACCESS DANAI'D" }
+        end
         format.json { render :show, status: :created, location: @teacher }
       else
         format.html { render :new }
@@ -41,8 +41,6 @@ class TeachersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /teachers/1
-  # PATCH/PUT /teachers/1.json
   def update
     respond_to do |format|
       if @teacher.update(teacher_params)
@@ -55,8 +53,6 @@ class TeachersController < ApplicationController
     end
   end
 
-  # DELETE /teachers/1
-  # DELETE /teachers/1.json
   def destroy
     @teacher.destroy
     respond_to do |format|
@@ -66,12 +62,10 @@ class TeachersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_teacher
       @teacher = Teacher.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
       params.require(:teacher).permit(:name, :email, :password_digest, :user_type)
     end

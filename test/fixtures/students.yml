@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   teacher_id: 1
   name: name
   email: email
@@ -8,8 +9,25 @@ one:
   user_type: student
 
 two:
-  teacher_id:
+  id: 2
+  teacher_id: 1
   name: MyString
   email: MyString
   password_digest: MyString
-  user_type: MyString
+  user_type: student
+
+three:
+  id: 3
+  teacher_id: 2
+  name: name
+  email: email
+  password_digest: password
+  user_type: student
+
+four:
+  id: 4
+  teacher_id: 2
+  name: MyString
+  email: MyString
+  password_digest: MyString
+  user_type: student

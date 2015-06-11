@@ -1,11 +1,41 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  student_id: 
+  student_id: 1
   value: 1.5
   assignment_name: MyString
 
 two:
-  student_id: 
+  student_id: 1
+  value: 1.5
+  assignment_name: MyString
+
+three:
+  student_id: 2
+  value: 1.5
+  assignment_name: MyString
+
+four:
+  student_id: 2
+  value: 1.5
+  assignment_name: MyString
+
+five:
+  student_id: 3
+  value: 1.5
+  assignment_name: MyString
+
+six:
+  student_id: 3
+  value: 1.5
+  assignment_name: MyString
+
+seven:
+  student_id: 4
+  value: 1.5
+  assignment_name: MyString
+
+eight:
+  student_id: 4
   value: 1.5
   assignment_name: MyString

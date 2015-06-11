@@ -8,8 +8,8 @@ one:
   user_type: parent
 
 two:
-  student_id:
+  student_id: 1
   name: MyString
   email: MyString
   password_digest: MyString
-  user_type: MyString
+  user_type: parent

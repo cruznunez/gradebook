@@ -2,6 +2,7 @@ class GradesController < ApplicationController
   include ApplicationHelper
   before_action :set_grade, only: [:show, :edit, :update, :destroy]
   before_action :logged_in?
+  before_action :teacher?, except: [:index, :show]
 
   # GET /grades
   # GET /grades.json
@@ -30,7 +31,7 @@ class GradesController < ApplicationController
 
     respond_to do |format|
       if @grade.save
-        format.html { redirect_to @grade, notice: 'Grade was successfully created.' }
+        format.html { redirect_to grades_path, notice: 'Grade was successfully created.' }
         format.json { render :show, status: :created, location: @grade }
       else
         format.html { render :new }

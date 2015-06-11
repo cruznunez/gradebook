@@ -8,6 +8,7 @@ one:
   user_type: teacher
 
 two:
+  id: 2
   name: MyString
   email: MyString
   password_digest: MyString
